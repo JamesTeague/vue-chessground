@@ -1,52 +1,38 @@
-# vue-chessground
+# vue-chessground &middot; [![package](https://img.shields.io/npm/v/vue-chessground)](https://npmjs.com) [![vue3](https://img.shields.io/badge/vue-%5E3.2.37-brightgreen)](https://vuejs.org/) ![ts](https://badgen.net/npm/types/tslib)
 
-This template should help get you started developing with Vue 3 in Vite.
+vue-chessground is a Vue Wrapper of the original [Chessground](https://github.com/ornicar/chessground) UI developed for [lichess.org](https://lichess.org). 
+This project currently contains no chess logic, please visit [chess.js](https://github.com/jhlywa/chess.js) for validation/generation.
 
-## Recommended IDE Setup
+This package is in very early stages of development, thus usage of this package in TypeScript is highly recommended.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Installation
 
-## Type Support for `.vue` Imports in TS
+Currently, the package has `peerDependencies` on `vue: ^3.2.26`.
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+```shell
+# If you are using pnpm:
+pnpm install vue-chessground
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+# If you are using npm:
+npm install vue-chessground
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-pnpm install
+# If you are using yarn:
+yarn add vue-chessground
 ```
 
-### Compile and Hot-Reload for Development
+## Documentation
 
-```sh
-pnpm dev
-```
+After installing, the component can be imported by name. It has 2 optional props:
 
-### Type-Check, Compile and Minify for Production
+- `size: string` defaults to `512px`, determines height and width of the chessboard in pixels
 
-```sh
-pnpm build
-```
+- `config: Partial<Config>` defaults to `{}`, determines various [configuration properties](https://github.com/ornicar/chessground/blob/master/src/config.ts#L7-L90) of Chessground
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+Renders a simple `512 x 512` board, with pieces in their default position:
 
-```sh
-pnpm test:unit
-```
+```jsx
+import { Chessboard } from 'vue-chessground';
 
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-pnpm lint
+// this style must be imported somewhere
+import 'vue-chessground/chessboard.css';
 ```
