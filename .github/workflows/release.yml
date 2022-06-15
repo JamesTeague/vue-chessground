@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: 16.x
           cache: 'pnpm'
-      - run: pnpm i --frozen-lockfile
+      - run: pnpm i --frozen-lockfile --ignore-scripts
       - run: pnpm run build
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.1.0
@@ -41,7 +41,7 @@ jobs:
         with:
           node-version: 16.x
           cache: 'pnpm'
-      - run: pnpm i --frozen-lockfile
+      - run: pnpm i --frozen-lockfile --ignore-scripts
       - name: Download a Build Artifact
         uses: actions/download-artifact@v3.0.0
         with:
@@ -51,4 +51,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx semantic-release
+        run: pnpm dlx semantic-release
