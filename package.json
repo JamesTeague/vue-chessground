@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "run-p type-check build-only",
+    "build": "pnpm run type-check && pnpm run build-only",
     "prepare": "husky install",
     "preview": "vite preview --port 4173",
     "test": "vitest --passWithNoTests",
@@ -28,6 +28,16 @@
   "files": [
     "dist"
   ],
+  "keywords": [
+    "vue",
+    "vuejs",
+    "vue3",
+    "chess",
+    "chessboard",
+    "chessground",
+    "lichess",
+    "typescript"
+  ],
   "main": "./dist/vue-chessground.umd.js",
   "module": "./dist/vue-chessground.es.js",
   "exports": {
@@ -39,8 +49,7 @@
   },
   "types": "dist/index.d.ts",
   "dependencies": {
-    "chessground": "^8.2.1",
-    "vue": "^3.2.37"
+    "chessground": "^8.2.1"
   },
   "peerDependencies": {
     "vue": "^3.2.36"
@@ -63,6 +72,7 @@
     "eslint": "^8.5.0",
     "eslint-plugin-vue": "^8.2.0",
     "husky": "^8.0.1",
+    "inquirer": "^8.2.4",
     "jsdom": "^19.0.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.5.1",
