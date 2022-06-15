@@ -1,0 +1,54 @@
+name: Release
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2.2.2
+        with:
+         version: 7.1.9
+      - uses: actions/checkout@v3
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: 'pnpm'
+      - run: pnpm i --frozen-lockfile
+      - run: pnpm run build
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: chess-moves
+          path: ./dist
+          if-no-files-found: error
+          retention-days: 90
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2.2.2
+        with:
+         version: 7.1.9
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: 'pnpm'
+      - run: pnpm i --frozen-lockfile
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v3.0.0
+        with:
+          name: chess-moves
+          path: ./dist
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release
