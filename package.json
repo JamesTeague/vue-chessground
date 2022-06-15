@@ -1,15 +1,30 @@
 {
   "name": "vue-chessground",
-  "version": "0.0.0",
+  "version": "0.0.0-semantic-release",
+  "author": {
+    "name": "James Teague II",
+    "email": "james@teague.dev"
+  },
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
+    "prepare": "husky install",
     "preview": "vite preview --port 4173",
+    "test": "vitest --passWithNoTests",
     "test:unit": "vitest --environment jsdom",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
+  "license": "GPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JamesTeague/vue-chessground.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JamesTeague/vue-chessground/issues"
+  },
+  "homepage": "https://github.com/JamesTeague/vue-chessground#readme",
   "files": [
     "dist"
   ],
@@ -31,7 +46,12 @@
     "vue": "^3.2.36"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.0.2",
+    "@commitlint/config-conventional": "^17.0.2",
+    "@commitlint/cz-commitlint": "^17.0.0",
     "@rushstack/eslint-patch": "^1.1.0",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/git": "^10.0.1",
     "@types/jsdom": "^16.2.14",
     "@types/node": "^16.11.36",
     "@vitejs/plugin-vue": "^2.3.3",
@@ -39,16 +59,24 @@
     "@vue/eslint-config-typescript": "^10.0.0",
     "@vue/test-utils": "^2.0.0",
     "@vue/tsconfig": "^0.1.3",
+    "commitizen": "^4.2.4",
     "eslint": "^8.5.0",
     "eslint-plugin-vue": "^8.2.0",
+    "husky": "^8.0.1",
     "jsdom": "^19.0.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.5.1",
+    "semantic-release": "^19.0.3",
     "typescript": "~4.7.2",
     "vite": "^2.9.9",
     "vite-plugin-dts": "^1.2.0",
     "vitest": "^0.13.0",
     "vue": "^3.2.36",
     "vue-tsc": "^0.35.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "@commitlint/cz-commitlint"
+    }
   }
 }
