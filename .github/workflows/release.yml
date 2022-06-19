@@ -32,19 +32,23 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/ci-setup
-      - uses: ./.github/actions/ci-checks
-      - name: Download a Build Artifact
-        uses: actions/download-artifact@v3.0.0
-        with:
-          name: vue-chessground
-          path: ./dist
       - name: Release-Please
         uses: google-github-actions/release-please-action@v3
         with:
           release-type: node
           package-name: vue-chessground
+      - uses: actions/checkout@v3
+        if: ${{ steps.release.outputs.release_created }}
+      - uses: ./.github/actions/ci-setup
+        if: ${{ steps.release.outputs.release_created }}
+      - uses: ./.github/actions/ci-checks
+        if: ${{ steps.release.outputs.release_created }}
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v3.0.0
+        with:
+          name: vue-chessground
+          path: ./dist
+        if: ${{ steps.release.outputs.release_created }}
       - run: pnpm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
