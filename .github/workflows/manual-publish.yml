@@ -11,31 +11,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: ./.github/actions/ci-setup
+      - uses: ./.github/actions/ci-checks
+      - run: pnpm build
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.0
         with:
-          node-version: 16
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2.2.2
-        with:
-          version: 7.1.9
-      - run: pnpm i
-      - run: pnpm test
-
+          name: vue-chessground
+          path: ./dist
+          if-no-files-found: error
+          retention-days: 90
   publish-npm:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2.2.2
-        with:
-          version: 7.1.9
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          registry-url: https://registry.npmjs.org/
-      - run: pnpm i --frozen-lockfile --ignore-scripts
-      - run: pnpm run build
+      - uses: ./.github/actions/ci-setup
+      - uses: ./.github/actions/ci-checks
+      - name: Download a Build Artifact
+       uses: actions/download-artifact@v3.0.0
+       with:
+         name: vue-chessground
+         path: ./dist
       - run: pnpm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}

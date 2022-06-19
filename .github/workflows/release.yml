@@ -1,3 +1,6 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
 name: Release
 
 on:
@@ -7,48 +10,42 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
     steps:
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2.2.2
-        with:
-         version: 7.1.9
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16.x
-          cache: 'pnpm'
-      - run: pnpm i --frozen-lockfile --ignore-scripts
-      - run: pnpm run build
+      - uses: ./.github/actions/ci-setup
+      - uses: ./.github/actions/ci-checks
+      - run: pnpm build
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.1.0
         with:
-          name: chess-moves
+          name: vue-chessground
           path: ./dist
           if-no-files-found: error
           retention-days: 90
   release:
     needs: build
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
     steps:
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2.2.2
-        with:
-         version: 7.1.9
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16.x
-          cache: 'pnpm'
-      - run: pnpm i --frozen-lockfile --ignore-scripts
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/ci-setup
+      - uses: ./.github/actions/ci-checks
       - name: Download a Build Artifact
         uses: actions/download-artifact@v3.0.0
         with:
-          name: chess-moves
+          name: vue-chessground
           path: ./dist
-      - name: Release
+      - name: Release-Please
+        uses: google-github-actions/release-please-action@v3
+        with:
+          release-type: node
+          package-name: vue-chessground
+      - run: pnpm publish
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: pnpm dlx semantic-release
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+        if: ${{ steps.release.outputs.release_created }}
