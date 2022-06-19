@@ -5,7 +5,7 @@ name: Node CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches-ignore: [ "master" ]
   pull_request:
     branches: [ "**" ]
   workflow_dispatch:
