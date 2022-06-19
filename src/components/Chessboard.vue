@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, onUpdated, ref } from 'vue';
 import { Chessground as ChessgroundApi } from 'chessground';
 import type { Api } from 'chessground/api';
 import type { Config } from 'chessground/config';
@@ -22,6 +22,10 @@ const props = withDefaults(defineProps<Props>(), {
 
 const board = ref<HTMLElement | null>(null);
 const cg = ref<Api | null>(null);
+
+onUpdated(() => {
+  cg.value = ChessgroundApi(board.value!, props.config);
+});
 
 onMounted(() => {
   cg.value = ChessgroundApi(board.value!, props.config);
