@@ -15,7 +15,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      name: 'vue-chessground',
+      name: 'vueChessground',
     },
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled
@@ -28,6 +28,7 @@ export default defineConfig({
         globals: {
           vue: 'Vue',
         },
+        exports: 'named',
       },
     },
   },
