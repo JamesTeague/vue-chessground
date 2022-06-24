@@ -33,7 +33,7 @@ onMounted(() => {
 </script>
 
 <style>
-@import '../assets/themes.css';
+@import '../../assets/themes.css';
 
 .blue.merida {
   height: v-bind(size);
