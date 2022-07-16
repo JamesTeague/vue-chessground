@@ -9,10 +9,12 @@ import { onMounted, onUpdated, ref } from 'vue';
 import { Chessground as ChessgroundApi } from 'chessground';
 import type { Api } from 'chessground/api';
 import type { Config } from 'chessground/config';
+import type { DrawShape } from 'chessground/draw';
 
 interface Props {
   size?: string;
   config?: Partial<Config>;
+  arrows?: DrawShape[];
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -25,10 +27,18 @@ const cg = ref<Api | null>(null);
 
 onUpdated(() => {
   cg.value = ChessgroundApi(board.value!, props.config);
+
+  if (props.arrows) {
+    cg.value.setShapes(props.arrows);
+  }
 });
 
 onMounted(() => {
   cg.value = ChessgroundApi(board.value!, props.config);
+
+  if (props.arrows) {
+    cg.value.setShapes(props.arrows);
+  }
 });
 </script>
 
