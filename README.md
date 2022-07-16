@@ -22,11 +22,13 @@ yarn add vue-chessground
 
 ## Documentation
 
-After installing, the component can be imported by name. It has 2 optional props:
+After installing, the component can be imported by name. It has 3 optional props:
 
 - `size: string` defaults to `512px`, determines height and width of the chessboard in pixels
 
 - `config: Partial<Config>` defaults to `{}`, determines various [configuration properties](https://github.com/ornicar/chessground/blob/master/src/config.ts#L7-L90) of Chessground
+
+- `arrows: DrawShape[]` defaults to `[]`, determines if any arrows should be added to the board
 
 Renders a simple `512 x 512` board, with pieces in their default position:
 
