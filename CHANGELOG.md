@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/JamesTeague/vue-chessground/compare/v1.0.2...v1.1.0) (2022-07-17)
+
+
+### Features
+
+* **arrows:** add props to allow for arrows to programmatically be added to board ([8e980d5](https://github.com/JamesTeague/vue-chessground/commit/8e980d555e02f2bfb1c61fbb6050842ba269ca76))
+
 ## [1.0.2](https://github.com/JamesTeague/vue-chessground/compare/v1.0.1...v1.0.2) (2022-06-24)
 
 
