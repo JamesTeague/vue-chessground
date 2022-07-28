@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/JamesTeague/vue-chessground/compare/v1.1.0...v1.1.1) (2022-07-21)
+
+
+### Bug Fixes
+
+* **cg-container:** restrain the container to the size of the board ([4241c6a](https://github.com/JamesTeague/vue-chessground/commit/4241c6ab8493c1a237e6b8b272ed576f50d08466))
+
 ## [1.1.0](https://github.com/JamesTeague/vue-chessground/compare/v1.0.2...v1.1.0) (2022-07-17)
 
 
